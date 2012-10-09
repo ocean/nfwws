@@ -35,4 +35,8 @@ Find me the prices around Fremantle for LPG, tomorrow:
 * Parse parameters more robustly.
 * Other nice things.
 
-- - -
+## License
+
+This FuelWatch API is released under the MIT License (see the [license](https://github.com/ocean/nfwws/blob/master/LICENSE) file) and is copyright Drew Robinson, 2012.
+
+This client is in no way affiliated with or endorsed by FuelWatch and is intended for education purposes only. Please note FuelWatch and its associated terms are property of FuelWatch itself and there is no association between this code, myself and FuelWatch.
