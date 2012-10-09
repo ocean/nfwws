@@ -1,8 +1,10 @@
-# Node.js FuelWatch API thingo
+# Node.js FuelWatch API search thingo
+
+**NOT READY FOR PUBLIC CONSUMPTION**
 
 This is a simple API server which acts as a proxy for the FuelWatch XML feed "API".
 
-This server enables simple URL-based search queries.
+This server enables simple URL-based search queries. Search results are (will be) delivered in JSON, with the option of JSONP if a `?callback=` query string is appended.
 
 Valid URL arguments are, in order:
 
@@ -28,6 +30,7 @@ Find me the prices around Fremantle for LPG, tomorrow:
 
 ## TODO
 
+* Make service work by actually returning JSON, with JSONP capability (currently spits out XML).
 * Add caching of search results into MongoDB (cache cleared each day when prices roll over of course).
 * Parse parameters more robustly.
 * Other nice things.
