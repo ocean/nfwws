@@ -8,9 +8,9 @@ Valid URL arguments are, in order:
 
 	http://[server]/v1/s/{suburb}/{fuel type}/{day}
 
-* *Suburb*: required.
-* *Fuel type*: optional, one of ULP, PULP, Diesel, LPG, 98RON or B20. *Defaults to ULP.*
-* *Day*: optional, one of "today" or "tomorrow" (tomorrow's prices only available after 2:30pm each day). *Defaults to today.*
+* **Suburb**: required.
+* **Fuel type**: optional, one of ULP, PULP, Diesel, LPG, 98RON or B20. **Defaults to ULP.**
+* **Day**: optional, one of "today" or "tomorrow" (tomorrow's prices only available after 2:30pm each day). **Defaults to today.**
 
 ## Usage
 
@@ -32,4 +32,4 @@ Find me the prices around Fremantle for LPG, tomorrow:
 * Parse parameters more robustly.
 * Other nice things.
 
-<small>EOM</small>
+<sub>EOM</sub>
