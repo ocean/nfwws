@@ -1,4 +1,4 @@
-# Node.js FuelWatch API
+# Node.js FuelWatch API thingo
 
 This is a simple API server which acts as a proxy for the FuelWatch XML feed "API".
 
@@ -26,4 +26,10 @@ Find me the prices around Fremantle for LPG, tomorrow:
 
 	curl http://[server]/v1/s/Fremantle/LPG/tomorrow
 
-EOM
+## TODO
+
+* Add caching of search results into MongoDB (cache cleared each day when prices roll over of course).
+* Parse parameters more robustly.
+* Other nice things.
+
+<small>EOM</small>

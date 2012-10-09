@@ -9,6 +9,7 @@ app.use(express.static(__dirname + '/public'));
 
 var out='';
 
+//Version 1 of the API :)
 app.get('/s/:suburb?/:fuelType?/:day?', function(req, res) {
 	// Ignore browser requests for Favicon
 	if (req.url=="/favicon.ico") return false;
