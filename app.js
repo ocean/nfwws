@@ -119,5 +119,10 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 
  //  request.end();
 });
-app.listen(process.env.VCAP_APP_PORT || 3000);
-console.log('Listening on 3000');
+// port setup with env var for AppFog
+// var port = process.env.VCAP_APP_PORT || 3000;
+// port setup with env var for Heroku
+var port = process.env.PORT || 3000;
+app.listen(port, function(){
+	console.log('Listening on ' + port);
+});

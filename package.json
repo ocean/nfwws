@@ -2,8 +2,12 @@
 	"name": "nfwws",
 	"description": "node fuelwatch widget service",
 	"version": "0.0.3",
-	"dependencies":{
-		"express":"",
-		"pantry":""
+	"dependencies": {
+		"express": "3.0.x",
+		"pantry": "0.4.x"
+	},
+	"engines": {
+		"node": "0.8.x",
+		"npm": "1.1.x"
 	}
 }
