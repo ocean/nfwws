@@ -60,7 +60,7 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 	pantry.fetch({ uri: fullURI }, function(error, data) {
 		console.log('Fetching: '+fullURI);
 		if (error) {
-			console.log(error);
+			console.log('pantry error: ' + error);
 		}
 		// var dump = '';
 		var dump = util.inspect(data, false, null);
@@ -85,6 +85,9 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 		res.write('\r\r'+'fetchDate = '+timeFromFWServer+' (dumb server date string)\rqueryDate = '+new Date());
 		res.write('\r\r'+util.inspect(result, false, null));
 		res.end();
+	});
+	req.on('error', function(e) {
+		console.log('request error: ' + e.message);
 	});
 
 	// var options = {
