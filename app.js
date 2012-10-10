@@ -8,9 +8,21 @@ app.enable("jsonp callback");
 
 app.use(express.logger());
 app.use(express.static(__dirname + '/public'));
+app.use(function(err, req, res, next){
+  console.error(err.stack);
+  res.status(500);
+  res.render('error 500', {error: err});
+});
 
 var out='';
 var result={};
+
+app.get('/', function(req,res){
+	res.redirect('/v1/s');
+});
+app.get('/s', function(req,res){
+	res.redirect('/v1/s');
+});
 
 //Version 1 of the API :)
 app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
@@ -125,7 +137,8 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 // port setup with env var for AppFog
 // var port = process.env.VCAP_APP_PORT || 3000;
 // port setup with env var for Heroku
-var port = process.env.PORT || 3000;
+// try being super tricky now
+var port = process.env.VCAP_APP_PORT || process.env.PORT || 3000;
 app.listen(port, function(){
 	console.log('Listening on ' + port);
 });
