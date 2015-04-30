@@ -1,12 +1,15 @@
-var express = require("express"),
+var express = require('express'),
 	app = express(),
-	http = require("http"),
-	util = require("util"),
-	pantry = require("pantry");
+	http = require('http'),
+	util = require('util'),
+	morgan = require('morgan'),
+	pantry = require('pantry');
 
-app.enable("jsonp callback");
+app.enable('jsonp callback');
 
-app.use(express.logger());
+// Morgan is a replacement for express.logger()
+app.use(morgan('combined'));
+
 app.use(express.static(__dirname + '/public'));
 app.use(function(err, req, res, next){
   console.error(err.stack);
@@ -65,7 +68,7 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 
 	// go crazy with Pantry instead of mouldy old http.request
 	pantry.configure({
-		maxLife: 30,
+		maxLife: 600,
 		parser: 'xml'
 	});
 	var fullURI = 'http://www.fuelwatch.wa.gov.au' + fwPath;
@@ -93,9 +96,12 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 		result.fetchDate = new Date(validTime);
 		result.queryDate = new Date();
 
-		res.write(dump);
-		res.write('\r\r'+'fetchDate = '+timeFromFWServer+' (dumb server date string)\rqueryDate = '+new Date());
-		res.write('\r\r'+util.inspect(result, false, null));
+		// res.write(dump);
+		// res.write(JSON.stringify(dump));
+		res.write(JSON.stringify(data, null, '  '));
+		// res.write('\r\r'+'fetchDate = '+timeFromFWServer+' (dumb server date string)\rqueryDate = '+new Date());
+		// res.write('\r\r' + util.inspect(result, false, null));
+		res.write('\r\r' + JSON.stringify(result, null, '  '));
 		res.end();
 	});
 	req.on('error', function(e) {
@@ -134,11 +140,8 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 
  //  request.end();
 });
-// port setup with env var for AppFog
-// var port = process.env.VCAP_APP_PORT || 3000;
 // port setup with env var for Heroku
-// try being super tricky now
-var port = process.env.VCAP_APP_PORT || process.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 app.listen(port, function(){
 	console.log('Listening on ' + port);
 });
