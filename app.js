@@ -11,20 +11,22 @@ app.enable('jsonp callback');
 app.use(morgan('combined'));
 
 app.use(express.static(__dirname + '/public'));
-app.use(function(err, req, res, next){
+app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500);
-  res.render('error 500', {error: err});
+  res.render('error 500', {
+    error: err
+  });
 });
 
 let out='';
 let result={};
 
-app.get('/', function(req,res){
-	res.redirect('/v1/s');
+app.get('/', function (req, res) {
+  res.redirect('/v1/s');
 });
-app.get('/s', function(req,res){
-	res.redirect('/v1/s');
+app.get('/s', function (req, res) {
+  res.redirect('/v1/s');
 });
 
 //Version 1 of the API :)
@@ -72,7 +74,7 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 		parser: 'xml'
 	});
 	const fullURI = 'http://www.fuelwatch.wa.gov.au' + fwPath;
-	pantry.fetch({ uri: fullURI }, function(error, data) {
+	pantry.fetch({ uri: fullURI }, function ( error, data ) {
 		console.log('Fetching: '+fullURI);
 		if (error) {
 			console.log('pantry error: ' + error);
@@ -88,7 +90,7 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 		// }
 		const timeFromFWServer = String(d.lastBuildDate).substring(String(d.lastBuildDate).length/2);
 		const ht = timeFromFWServer.split(' ');
-		const validTime = ht[0]+' '+ht[1]+' '+ht[2]+' '+ht[5]+' '+ht[3]+' GMT+0800 (WST)';
+		const validTime = ht[0] + ' ' + ht[1] + ' ' + ht[2] + ' ' + ht[5] + ' ' + ht[3] + ' GMT+0800 (WST)';
 
 		// really get down to rewriting a nice Object for ourselves now
 		result.title = d.title; // TODO: make our own, better, title.
