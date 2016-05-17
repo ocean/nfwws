@@ -1,20 +1,20 @@
 {
   "name": "nfwws",
-  "description": "node fuelwatch widget service",
-  "version": "0.0.5",
+  "description": "node fuelwatch web service",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ocean/nfwws.git"
+    "url": "https://github.com/ocean/nfwws.git"
   },
   "author": "Drew Robinson <drew.robinson@gmail.com>",
   "license": "MIT",
   "engines": {
-    "node": "0.10.x",
-    "npm": "2.5.x"
+    "node": "5.x",
+    "npm": "3.x"
   },
   "dependencies": {
     "express": "4.x.x",
-    "pantry": "0.7.x",
+    "pantry": "git://github.com/ocean/pantry.git#master",
     "morgan": "1.x.x"
   }
 }
