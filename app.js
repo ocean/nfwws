@@ -1,4 +1,4 @@
-const express = require('express'),
+var express = require('express'),
 	app = express(),
 	http = require('http'),
 	util = require('util'),
@@ -19,8 +19,8 @@ app.use(function (err, req, res, next) {
   });
 });
 
-let out='';
-let result={};
+var out='';
+var result={};
 
 app.get('/', function (req, res) {
   res.redirect('/v1/s');
@@ -35,11 +35,11 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 	if (req.url=="/favicon.ico") return false;
 
 	// Get search params from URL path, or use defaults
-	let suburb = req.params.suburb || 'Subiaco';
-	let fuelType = req.params.fuelType || 'ULP';
+	var suburb = req.params.suburb || 'Subiaco';
+	var fuelType = req.params.fuelType || 'ULP';
 	// can be "tomorrow" but only after 14:30.
-	let day = req.params.day || 'today';
-	let fuelTypeNum = 1;
+	var day = req.params.day || 'today';
+	var fuelTypeNum = 1;
 	switch (fuelType) {
 		case 'ULP':
 			fuelTypeNum = 1;
@@ -61,36 +61,36 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 			break;
 	}
 
-	let response = '';
+	var response = '';
 
 	// var suburbEsc = encodeURIComponent(suburb).replace(/ /g, '%20').replace(/\'/g, '%27').replace(/\%/g, '%25');
-	const suburbEsc = encodeURIComponent(suburb);
-	const dayEsc = encodeURIComponent(day);
-	const fwPath = '/fuelwatch/fuelWatchRSS?Suburb=' + suburbEsc + '&Product=' + fuelTypeNum + '&Day=' + dayEsc;
+	var suburbEsc = encodeURIComponent(suburb);
+	var dayEsc = encodeURIComponent(day);
+	var fwPath = '/fuelwatch/fuelWatchRSS?Suburb=' + suburbEsc + '&Product=' + fuelTypeNum + '&Day=' + dayEsc;
 
 	// go crazy with Pantry instead of mouldy old http.request
 	pantry.configure({
 		maxLife: 600,
 		parser: 'xml'
 	});
-	const fullURI = 'http://www.fuelwatch.wa.gov.au' + fwPath;
+	var fullURI = 'http://www.fuelwatch.wa.gov.au' + fwPath;
 	pantry.fetch({ uri: fullURI }, function ( error, data ) {
 		console.log('Fetching: '+fullURI);
 		if (error) {
 			console.log('pantry error: ' + error);
 		}
 		// var dump = '';
-		const dump = util.inspect(data, false, null);
+		var dump = util.inspect(data, false, null);
 		// console.log(util.inspect(data, false, null, true));
-		const d = data.channel[0];
+		var d = data.channel[0];
 		// res.end(JSON.stringify(data));
 		// for (var p in d) {
 		//	var o = 'data.channel[0].'+p+' = '+d[p];
 		//	dump += o+'\n';
 		// }
-		const timeFromFWServer = String(d.lastBuildDate).substring(String(d.lastBuildDate).length/2);
-		const ht = timeFromFWServer.split(' ');
-		const validTime = ht[0] + ' ' + ht[1] + ' ' + ht[2] + ' ' + ht[5] + ' ' + ht[3] + ' GMT+0800 (WST)';
+		var timeFromFWServer = String(d.lastBuildDate).substring(String(d.lastBuildDate).length/2);
+		var ht = timeFromFWServer.split(' ');
+		var validTime = ht[0] + ' ' + ht[1] + ' ' + ht[2] + ' ' + ht[5] + ' ' + ht[3] + ' GMT+0800 (WST)';
 
 		// really get down to rewriting a nice Object for ourselves now
 		result.title = d.title; // TODO: make our own, better, title.
@@ -143,7 +143,7 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
  //  request.end();
 });
 // port setup with env var for Heroku
-const port = process.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 app.listen(port, function(){
 	console.log('Listening on ' + port);
 });

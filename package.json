@@ -6,6 +6,10 @@
     "type": "git",
     "url": "https://github.com/ocean/nfwws.git"
   },
+  "scripts": {
+    "start": "node app.js",
+    "lint": "eslint . --ext *.js --cache"
+  },
   "author": "Drew Robinson <drew.robinson@gmail.com>",
   "license": "MIT",
   "engines": {
@@ -16,5 +20,10 @@
     "express": "4.x.x",
     "pantry": "git://github.com/ocean/pantry.git#master",
     "morgan": "1.x.x"
+  },
+  "devDependencies": {
+    "eslint": "^2.9.x",
+    "eslint-config-airbnb-base": "^2.x",
+    "eslint-plugin-import": "^1.6.x"
   }
 }
