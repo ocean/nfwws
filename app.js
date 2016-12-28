@@ -29,7 +29,7 @@ app.get('/s', function (req, res) {
   res.redirect('/v1/s');
 });
 
-//Version 1 of the API :)
+// Version 1 of the API :)
 app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 	// Ignore browser requests for Favicon
 	if (req.url=="/favicon.ico") return false;
@@ -61,8 +61,6 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 			break;
 	}
 
-	var response = '';
-
 	var suburbEsc = encodeURIComponent(suburb);
 	var dayEsc = encodeURIComponent(day);
 	var fwPath = '/fuelwatch/fuelWatchRSS?Suburb=' + suburbEsc + '&Product=' + fuelTypeNum + '&Day=' + dayEsc;
@@ -74,7 +72,7 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 	});
 	var fullURI = 'http://www.fuelwatch.wa.gov.au' + fwPath;
 	pantry.fetch({ uri: fullURI }, function ( error, data ) {
-		console.log('Fetching: '+fullURI);
+		console.log('Fetching: ' + fullURI);
 		if (error) {
 			console.log('pantry error: ' + error);
 		}
@@ -85,70 +83,38 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 		var validTime = ht[0] + ' ' + ht[1] + ' ' + ht[2] + ' ' + ht[5] + ' ' + ht[3] + ' GMT+0800 (WST)';
 
 		// really get down to rewriting a nice Object for ourselves now
-		var pageTitle = d.title[0].toString() + ' for ' + d.description[0].split(' ')[0].toString();
-		result.title = pageTitle; // TODO: make our own, better, title.
-		// result.description = d.description; // and drop this.
+		var responseTitle = d.title[0].toString() + ' for ' + d.description[0].split(' ')[0].toString();
+		result.title = responseTitle;
 		result.dataFetchedDate = new Date(validTime);
 		result.requestDate = new Date();
 		result.locations = [];
 
-		result.locations = d.item.map(function(location) {
-			var loc = {
-				title: location.title[0],
-				tradingName: location['trading-name'][0],
-				streetAddress: location.address[0],
-				suburb: location.location[0],
-				latitude: location.latitude[0],
-				longitude: location.longitude[0],
-				description: location.description[0],
+		result.locations = d.item.map(function(l) {
+			var location = {
+				title: l.title[0],
+				tradingName: l['trading-name'][0],
+				streetAddress: l.address[0],
+				suburb: l.location[0],
+				latitude: l.latitude[0],
+				longitude: l.longitude[0],
+				description: l.description[0],
 			};
-			return loc;
+			return location;
 		});
 
 		// res.write(dump);
 		// res.write(JSON.stringify(dump));
 
 		// res.write(JSON.stringify(data, null, '  '));
-
 		// res.write('\r\r' + JSON.stringify(result, null, '  '));
-		res.write(JSON.stringify(result, null, '  '));
+
+		// res.write(JSON.stringify(result, null, '  '));
+		res.jsonp(result);
 		res.end();
 	});
 	req.on('error', function(e) {
 		console.log('request error: ' + e.message);
 	});
-
-	// var options = {
-	//	host: 'www.fuelwatch.wa.gov.au',
-	//	path: fwPath
-	// };
-
-	// // set up http request
- //  var request = http.request(options, function(response) {
-	//	var body = "";
-	//	console.log('STATUS: ' + response.statusCode);
-	//	// console.log('HEADERS: ' + JSON.stringify(response.headers));
-	//	console.log("PATH: " + options.path);
-	//	response.setEncoding("utf8");
-
-	//	response.on("data", function(chunk){
-	//		body += chunk;
-	//	});
-
-	//	response.on("end", function(){
-	//		out = body;
-	//		// blast out straight XML at the moment
-	//		res.end(out);
-	//		// use Response.jsonp() to wrap in JSONP ?callback=<blah>, but needs to be JSON first
-	//		// res.jsonp(out);
-	//	});
- //  });
-
-	// request.on('error', function(e) {
-	//	console.log('request error: ' + e.message);
-	// });
-
- //  request.end();
 });
 // port setup with env var for Heroku
 var port = process.env.PORT || 3000;
