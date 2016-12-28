@@ -63,7 +63,6 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 
 	var response = '';
 
-	// var suburbEsc = encodeURIComponent(suburb).replace(/ /g, '%20').replace(/\'/g, '%27').replace(/\%/g, '%25');
 	var suburbEsc = encodeURIComponent(suburb);
 	var dayEsc = encodeURIComponent(day);
 	var fwPath = '/fuelwatch/fuelWatchRSS?Suburb=' + suburbEsc + '&Product=' + fuelTypeNum + '&Day=' + dayEsc;
@@ -79,32 +78,40 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 		if (error) {
 			console.log('pantry error: ' + error);
 		}
-		// var dump = '';
-		var dump = util.inspect(data, false, null);
-		// console.log(util.inspect(data, false, null, true));
+		// var dump = util.inspect(data, false, null);
 		var d = data.channel[0];
-		// res.end(JSON.stringify(data));
-		// for (var p in d) {
-		//	var o = 'data.channel[0].'+p+' = '+d[p];
-		//	dump += o+'\n';
-		// }
 		var timeFromFWServer = String(d.lastBuildDate).substring(String(d.lastBuildDate).length/2);
 		var ht = timeFromFWServer.split(' ');
 		var validTime = ht[0] + ' ' + ht[1] + ' ' + ht[2] + ' ' + ht[5] + ' ' + ht[3] + ' GMT+0800 (WST)';
 
 		// really get down to rewriting a nice Object for ourselves now
-		var pageTitle = d.title[0].toString() + ' - ' + d.description[0].split(' ')[0].toString();
+		var pageTitle = d.title[0].toString() + ' for ' + d.description[0].split(' ')[0].toString();
 		result.title = pageTitle; // TODO: make our own, better, title.
 		// result.description = d.description; // and drop this.
 		result.dataFetchedDate = new Date(validTime);
 		result.requestDate = new Date();
+		result.locations = [];
+
+		result.locations = d.item.map(function(location) {
+			var loc = {
+				title: location.title[0],
+				tradingName: location['trading-name'][0],
+				streetAddress: location.address[0],
+				suburb: location.location[0],
+				latitude: location.latitude[0],
+				longitude: location.longitude[0],
+				description: location.description[0],
+			};
+			return loc;
+		});
 
 		// res.write(dump);
 		// res.write(JSON.stringify(dump));
-		res.write(JSON.stringify(data, null, '  '));
-		// res.write('\r\r'+'fetchDate = '+timeFromFWServer+' (dumb server date string)\rqueryDate = '+new Date());
-		// res.write('\r\r' + util.inspect(result, false, null));
-		res.write('\r\r' + JSON.stringify(result, null, '  '));
+
+		// res.write(JSON.stringify(data, null, '  '));
+
+		// res.write('\r\r' + JSON.stringify(result, null, '  '));
+		res.write(JSON.stringify(result, null, '  '));
 		res.end();
 	});
 	req.on('error', function(e) {
