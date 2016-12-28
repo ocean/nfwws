@@ -1,7 +1,7 @@
 {
   "name": "nfwws",
   "description": "node fuelwatch web service",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/ocean/nfwws.git"
@@ -11,19 +11,18 @@
     "lint": "eslint . --ext *.js --cache"
   },
   "author": "Drew Robinson <drew.robinson@gmail.com>",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "engines": {
-    "node": "5.x",
-    "npm": "3.x"
+    "node": "6.x"
   },
   "dependencies": {
     "express": "4.x.x",
-    "pantry": "git://github.com/ocean/pantry.git#master",
+    "pantry": "git://github.com/ocean/pantry.git#v1.0.0",
     "morgan": "1.x.x"
   },
   "devDependencies": {
-    "eslint": "^2.9.x",
-    "eslint-config-airbnb-base": "^2.x",
-    "eslint-plugin-import": "^1.6.x"
+    "eslint": "^3.x",
+    "eslint-config-airbnb-base": "^11.x",
+    "eslint-plugin-import": "^2.x"
   }
 }
