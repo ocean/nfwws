@@ -93,10 +93,11 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 		var validTime = ht[0] + ' ' + ht[1] + ' ' + ht[2] + ' ' + ht[5] + ' ' + ht[3] + ' GMT+0800 (WST)';
 
 		// really get down to rewriting a nice Object for ourselves now
-		result.title = d.title; // TODO: make our own, better, title.
-		result.description = d.description; // and drop this.
-		result.fetchDate = new Date(validTime);
-		result.queryDate = new Date();
+		var pageTitle = d.title[0].toString() + ' - ' + d.description[0].split(' ')[0].toString();
+		result.title = pageTitle; // TODO: make our own, better, title.
+		// result.description = d.description; // and drop this.
+		result.dataFetchedDate = new Date(validTime);
+		result.requestDate = new Date();
 
 		// res.write(dump);
 		// res.write(JSON.stringify(dump));
