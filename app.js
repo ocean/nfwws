@@ -22,8 +22,8 @@ app.use(function (err, req, res, next) {
 var out='';
 var result={};
 
-app.get('/', function (req, res) {
-  res.redirect('/v1/s');
+app.get('/', function getStaticHome(req, res) {
+  res.redirect('/public/index.html');
 });
 app.get('/s', function (req, res) {
   res.redirect('/v1/s');
@@ -83,7 +83,9 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 		var validTime = ht[0] + ' ' + ht[1] + ' ' + ht[2] + ' ' + ht[5] + ' ' + ht[3] + ' GMT+0800 (WST)';
 
 		// really get down to rewriting a nice Object for ourselves now
-		var responseTitle = d.title[0].toString() + ' for ' + d.description[0].split(' ')[0].toString();
+		var feedTitle = d.title[0].toString();
+		var feedDate = d.description[0].split(' ')[0].toString();
+		var responseTitle = feedTitle + ' for ' + fuelType + ' on ' + feedDate;
 		result.title = responseTitle;
 		result.dataFetchedDate = new Date(validTime);
 		result.requestDate = new Date();
