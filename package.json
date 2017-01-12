@@ -1,10 +1,10 @@
 {
-  "name": "nfwws",
-  "description": "node fuelwatch web service",
-  "version": "1.0.1",
+  "name": "node-fw-api",
+  "description": "node fuelwatch api",
+  "version": "1.1.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ocean/nfwws.git"
+    "url": "https://github.com/ocean/node-fw-api.git"
   },
   "scripts": {
     "start": "node app.js",

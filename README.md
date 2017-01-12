@@ -1,10 +1,10 @@
-# NOT READY FOR PUBLIC CONSUMPTION !!
-
 # Node.js FuelWatch API search thingo
+
+## NOT READY FOR PUBLIC CONSUMPTION !!
 
 This is a simple API server which acts as a proxy for the FuelWatch XML feed "API".
 
-This server enables simple URL-based search queries. Search results are (will be) delivered in JSON, with the option of JSONP if a `?callback=` query string is appended.
+This server enables simple URL-based search queries. Search results are delivered in JSON, with the option of JSONP if a `?callback=` query string is appended.
 
 Valid URL arguments are, in order:
 
@@ -30,13 +30,19 @@ Find me the prices around Fremantle for LPG, tomorrow:
 
 ## TODO
 
-* Make service work by actually returning JSON, with JSONP capability (currently spits out XML).
-* Add caching of search results into MongoDB (cache cleared each day when prices roll over of course).
-* Parse parameters more robustly.
-* Other nice things.
+- [x] Make service work by actually returning JSON, with JSONP capability.
+- [ ] Add caching of search results into MongoDB (cache cleared each day when prices roll over of course).
+- [ ] Parse parameters more robustly.
+- [ ] Other nice things.
 
 ## License
 
-This FuelWatch API is released under the MIT License (see the [license](https://github.com/ocean/nfwws/blob/master/LICENSE) file) and is copyright Drew Robinson, 2012.
-
 This client is in no way affiliated with or endorsed by FuelWatch and is intended for education purposes only. Please note FuelWatch and its associated terms are property of FuelWatch itself and there is no association between this code, myself and FuelWatch.
+
+Copyright 2017 Drew Robinson
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
