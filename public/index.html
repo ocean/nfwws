@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Node FW API</title>
+  <meta name="author" content="Drew Robinson">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <!--<link rel="icon" type="image/png" href="images/favicon.png">-->
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="eight column" style="margin-top: 10%">
+        <h1>Node FW API &ndash; a FuelWatch API</h1>
+        <p>This is a simple API server which acts as a proxy for the FuelWatch XML feed "API".</p>
+        <h3>Usage</h3>
+        <p>Simply the hit the endpoints below with the specified parameters to get data. Data is plain JSON by default. JSONP can be requested by adding a <code>?callback=yourCallbackFunctionNameHere</code> query parameter to the URL.</p>
+        <p>Valid URL arguments are, in order:</p>
+        <p><code>http://[server]/v1/s/{suburb}/{fuel type}/{day}</code></p>
+        <ul>
+          <li><strong>Suburb</strong> required.</li>
+          <li><strong>Fuel type</strong>: optional, one of ULP, PULP, Diesel, LPG, 98RON or B20. <strong>Defaults to ULP.</strong></li>
+          <li><strong>Day</strong>: optional, one of "today" or "tomorrow" (tomorrow's prices only available after 2:30pm each day). <strong>Defaults to today.</strong></li>
+        </ul>
+        <p>Here are some example requests:</p>
+        <table class="u-full-width">
+          <thead>
+            <tr>
+              <th>URL</th>
+              <th>Data provided</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code><a href="/v1/s/Subiaco">/v1/s/Subiaco</a></code></td>
+              <td>Prices around Subiaco for ULP, for today.</td>
+            </tr>
+            <tr>
+              <td><code><a href="/v1/s/Midland/Diesel">/v1/s/Midland/Diesel</a></code></td>
+              <td>Prices around Midland for Diesel, for today.</td>
+            </tr>
+            <tr>
+              <td><code><a href="/v1/s/Fremantle/PULP/tomorrow">/v1/s/Fremantle/PULP/tomorrow</a></code></td>
+              <td>Prices around Fremantle for Premium ULP (also called "98 RON"), for tomorrow.</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Disclaimer</h3>
+        <p>This client is in no way affiliated with or endorsed by FuelWatch and is intended for education purposes only. Please note FuelWatch and its associated terms are property of FuelWatch itself and there is no association between this code, myself and FuelWatch.</p>
+      </div>
+    </div>
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
