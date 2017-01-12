@@ -92,14 +92,16 @@ app.get('/v1/s/:suburb?/:fuelType?/:day?', function(req, res) {
 		result.locations = [];
 
 		result.locations = d.item.map(function(l) {
+			var price = l.title[0].split(':')[0].toString();
 			var location = {
-				title: l.title[0],
-				tradingName: l['trading-name'][0],
-				streetAddress: l.address[0],
-				suburb: l.location[0],
-				latitude: l.latitude[0],
-				longitude: l.longitude[0],
-				description: l.description[0],
+				title: l.title[0].toString(),
+				tradingName: l['trading-name'][0].toString(),
+				price: price,
+				streetAddress: l.address[0].toString(),
+				suburb: l.location[0].toString(),
+				latitude: l.latitude[0].toString(),
+				longitude: l.longitude[0].toString(),
+				description: l.description[0].toString(),
 			};
 			return location;
 		});
