@@ -16,7 +16,7 @@
     "node": "6.x"
   },
   "dependencies": {
-    "express": "4.x.x",
+    "express": "^4.14.1",
     "pantry": "git://github.com/ocean/pantry.git#v1.0.0",
     "morgan": "1.x.x"
   },
