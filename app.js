@@ -3,14 +3,17 @@ var express = require('express'),
 	http = require('http'),
 	util = require('util'),
 	morgan = require('morgan'),
-	pantry = require('pantry');
+	pantry = require('pantry'),
+	path = require('path');
 
 app.enable('jsonp callback');
 
 // Morgan is a replacement for express.logger()
 app.use(morgan('combined'));
 
-app.use(express.static(__dirname + '/public'));
+// Serve anything in public as static files
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500);
