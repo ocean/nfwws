@@ -18,7 +18,7 @@
   "dependencies": {
     "express": "4.x.x",
     "pantry": "git://github.com/ocean/pantry.git#v1.0.0",
-    "morgan": "1.x.x"
+    "morgan": "1.10.0"
   },
   "devDependencies": {
     "eslint": "^4.4.1",
